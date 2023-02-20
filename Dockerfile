@@ -10,7 +10,8 @@ WORKDIR "/usr/local/airflow"
 RUN python -m pip install --upgrade pip
 
 #copy requirements and change owner to airflow
-COPY --chown=airflow:airflow requirements/* ./
+# COPY --chown=airflow:airflow requirements/* ./
+COPY requirements/* ./
 RUN pip install --no-cache-dir -r airflow-requirements.txt
 
 # install dbt into a venv to avoid package dependency conflicts
