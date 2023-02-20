@@ -15,7 +15,7 @@ COPY requirements/* ./
 RUN pip install --no-cache-dir -r airflow-requirements.txt
 
 # install dbt into a venv to avoid package dependency conflicts
-RUN python -m virtualenv --system-site-packages dbt_venv && source dbt_venv/bin/activate && \
+RUN python -m virtualenv --system-site-packages /usr/local/dbt_venv && source /usr/local/dbt_venv/bin/activate && \
      pip install --no-cache-dir -r dbt-requirements.txt && deactivate
 
 # RUN python3 -m venv --system-site-packages dbt_venv && source dbt_venv/bin/activate && \
