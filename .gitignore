@@ -1,0 +1,10 @@
+*__pycache__
+*.DS_Store
+*.log
+config
+docker-compose-es.yaml
+dbt/.dbt/
+dbt/jaffle_shop/target/
+dbt/jaffle_shop/dbt_modules/
+./dbt/jaffle_shop/logs
+logs/*
