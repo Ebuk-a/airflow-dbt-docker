@@ -1,0 +1,2 @@
+#Specify the files and folders(SQL requests, bash scripts, Python scripts) to ignore, that usually cause a timeout, 
+#as the Scheduler has too many files to check. The Scheduler will ignore those folders and files.
