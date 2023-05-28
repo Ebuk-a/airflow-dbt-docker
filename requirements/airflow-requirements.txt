@@ -1,2 +1,4 @@
 astronomer-cosmos[dbt.all]
+sqlalchemy-redshift
+redshift_connector
 # apache-airflow-providers-snowflake
