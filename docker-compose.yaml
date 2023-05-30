@@ -205,6 +205,7 @@ services:
     <<: *airflow-common
     entrypoint: /bin/bash
     # yamllint disable rule:line-length
+    # added  chown -R "${AIRFLOW_UID}:0" /opt/airflow to the penultimate line to fix denied permission to /opt/airflow on webserver
     command:
       - -c
       - |
@@ -266,6 +267,7 @@ services:
         fi
         mkdir -p /sources/logs /sources/dags /sources/plugins
         chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
+        chown -R "${AIRFLOW_UID}:0" /opt/airflow
         exec /entrypoint airflow version
     # yamllint enable rule:line-length
     environment:
