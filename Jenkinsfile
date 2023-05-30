@@ -32,7 +32,7 @@ pipeline {
         stage('Update Webserver permission') {
           steps {
             sh 'chmod 777 webserver_perm.sh'
-            sh 'echo whoami'
+            sh 'whoami'
             sh './webserver_perm.sh'
           }
           post {
