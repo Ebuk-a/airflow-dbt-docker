@@ -43,7 +43,7 @@ pipeline {
         }
         stage('Run health tests against the container') {
           steps {
-            sh 'curl http://localhost:8080/health'
+            sh 'curl http://localhost:8081/health'
           }
         }
     }
