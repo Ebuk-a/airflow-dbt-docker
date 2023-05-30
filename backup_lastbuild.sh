@@ -4,12 +4,12 @@ echo "################################################################"
 
 ls /var/lib/jenkins/workspace/airflow-ci-jenkins &> /dev/null
 
-if [ $? -eq 0 ]
+if [ $? -ne 0 ]
 then
-	echo "Backing up the old build file"
-	mv airflow-ci-jenkins airflow-ci-jenkins_${env.BUILD_NUMBER}_${env.BUILD_TIMESTAMP}
-	rm -rf airflow-ci-jenkins@tmp
+        echo "No existing build file...continuing"
 else
-	echo "No existing build file...continuing"
+        echo "Backing up the old build file as airflow-ci-jenkins_$BUILD_NUMBER_$BUILD_TIMESTAMP"
+        echo $BUILD_NUMBER_$BUILD_TIMESTAMP
+        rm -rf airflow-ci-jenkins@tmp
+        mv /var/lib/jenkins/workspace/airflow-ci-jenkins /var/lib/jenkins/workspace/airflow-ci-jenkins_$BUILD_NUMBER_$BUILD_TIMESTAMP
 fi
-echo "################################################################"
