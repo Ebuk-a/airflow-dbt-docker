@@ -33,6 +33,7 @@ pipeline {
           steps {
             sh 'chmod 777 webserver_perm.sh'
             sh 'whoami'
+            sh 'whoami'
             sh './webserver_perm.sh'
           }
           post {
