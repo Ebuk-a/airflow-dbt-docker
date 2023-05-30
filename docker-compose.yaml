@@ -119,11 +119,11 @@ services:
     #port 8081 on the server maps to the airflow-webserver container port 8080 
     ports:
       - 8081:8080
-    # healthcheck:
-    #   test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
-    #   interval: 10s
-    #   timeout: 10s
-    #   retries: 5
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
     restart: always
     depends_on:
       <<: *airflow-common-depends-on
@@ -133,11 +133,11 @@ services:
   airflow-scheduler:
     <<: *airflow-common
     command: scheduler
-    # healthcheck:
-    #   test: ["CMD-SHELL", 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"']
-    #   interval: 10s
-    #   timeout: 10s
-    #   retries: 5
+    healthcheck:
+      test: ["CMD-SHELL", 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"']
+      interval: 10s
+      timeout: 10s
+      retries: 5
     restart: always
     depends_on:
       <<: *airflow-common-depends-on
@@ -147,13 +147,13 @@ services:
   airflow-worker:
     <<: *airflow-common
     command: celery worker
-    # healthcheck:
-    #   test:
-    #     - "CMD-SHELL"
-    #     - 'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"'
-    #   interval: 10s
-    #   timeout: 10s
-    #   retries: 5
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - 'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"'
+      interval: 10s
+      timeout: 10s
+      retries: 5
     environment:
       <<: *airflow-common-env
       # Required to handle warm shutdown of the celery workers properly
@@ -169,13 +169,13 @@ services:
     <<: *airflow-common
     # The command creates a new queue (called high_cpu) in the worker-2. The worker two handles all tasks sent to high_cpu queue
     command: celery worker -q high_cpu
-    # healthcheck:
-    #   test:
-    #     - "CMD-SHELL"
-    #     - 'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"'
-    #   interval: 10s
-    #   timeout: 10s
-    #   retries: 5
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - 'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"'
+      interval: 10s
+      timeout: 10s
+      retries: 5
     environment:
       <<: *airflow-common-env
       # Required to handle warm shutdown of the celery workers properly
@@ -190,11 +190,11 @@ services:
   airflow-triggerer:
     <<: *airflow-common
     command: triggerer
-    # healthcheck:
-    #   test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']
-    #   interval: 10s
-    #   timeout: 10s
-    #   retries: 5
+    healthcheck:
+      test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']
+      interval: 10s
+      timeout: 10s
+      retries: 5
     restart: always
     depends_on:
       <<: *airflow-common-depends-on
