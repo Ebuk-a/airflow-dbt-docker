@@ -5,16 +5,11 @@ def COLOR_MAP = [
 
 pipeline {
     agent any
-    tools {
-        maven 'MAVEN3'
-        jdk 'OracleJDK8'
-    }
-
     environment {
         DOCKER_CREDENTIAL = credentials('dockercred')
-        REGISTRY_CREDENTIAL = 'dockercred'
-        PIPELINE_REGISTRY = "117542381924.dkr.ecr.eu-west-2.amazonaws.com/airflowimg"
-        AIRFLOW_REGISTRY = "https://117542381924.dkr.ecr.eu-west-2.amazonaws.com"
+        REGISTRY_CREDENTIAL = 'awscreds'
+        AWS_REGISTRY = "117542381924.dkr.ecr.eu-west-2.amazonaws.com/airflowimg"
+        AWSAIRFLOW_REGISTRY = "https://117542381924.dkr.ecr.eu-west-2.amazonaws.com"
         CLUSTER = "airflow"
         SERVICE = "airflowsvc"
     }
@@ -42,12 +37,12 @@ pipeline {
             }  
           }
         }
-        stage('Run webserver health test on container') {
+        stage('Run health tests against the container') {
           steps {
             sh 'curl http://localhost:8081/health'
           }
         }
-        stage('Push Containers to DockerHub') {
+        stage('Push Containers to DockerRegistry & Delete Old Images') {
           steps {
             sh 'chmod 777 dockerpush.sh'
             sh './dockerpush.sh'

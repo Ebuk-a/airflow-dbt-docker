@@ -1,4 +1,5 @@
-FROM apache/airflow:2.5.1
+FROM apache/airflow:latest
+#FROM apache/airflow:2.5.1
 
 #Install all Cosmos(for dbt-ariflow integration), dbt, and all of the supported database types (postgres, bigquery, redshift, snowflake)
 USER root
