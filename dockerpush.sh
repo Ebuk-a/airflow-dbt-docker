@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #Filter out the names of the different servers from the response of docker ps
-WEBSERVER_NAME=`docker ps | grep webserver | awk '{print $1}'`
-SCHEDULER_NAME=`docker ps | grep scheduler | awk '{print $1}'`
-TRIGGERER_NAME=`docker ps | grep triggerer | awk '{print $1}'`
-WORKER_1_NAME=`docker ps | grep worker-1 | awk '{print $1}'`
-WORKER_2_NAME=`docker ps | grep worker-2 | awk '{print $1}'`
+WEBSERVER_NAME=`docker ps | grep webserver | awk '{print $2}'`
+SCHEDULER_NAME=`docker ps | grep scheduler | awk '{print $2}'`
+TRIGGERER_NAME=`docker ps | grep triggerer | awk '{print $2}'`
+WORKER_1_NAME=`docker ps | grep worker-1 | awk '{print $2}'`
+WORKER_2_NAME=`docker ps | grep worker-2 | awk '{print $2}'`
 
 #Tag each local image according, ready for push to remote repo.
 docker tag $WEBSERVER_NAME:latest dataebuka/airflow-webserver:v$BUILD_NUMBER_$BUILD_TIMESTAMP
