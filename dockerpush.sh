@@ -14,11 +14,12 @@ docker tag $TRIGGERER_NAME:latest dataebuka/airflow-triggerer:v$BUILD_NUMBER_$BU
 docker tag $WORKER_1_NAME:latest dataebuka/airflow-worker-1:v$BUILD_NUMBER_$BUILD_TIMESTAMP
 docker tag $WORKER_2_NAME:latest dataebuka/airflow-worker-2:v$BUILD_NUMBER_$BUILD_TIMESTAMP
 
+#Login to Dockerhub
+docker login -u $DOCKER_CREDENTIAL_USR -p $DOCKER_CREDENTIAL_PSW
+
 #Push tagged images to remote repository
 docker push dataebuka/airflow-webserver:v$BUILD_NUMBER_$BUILD_TIMESTAMP
 docker push dataebuka/airflow-scheduler:v$BUILD_NUMBER_$BUILD_TIMESTAMP
 docker push dataebuka/airflow-triggerer:v$BUILD_NUMBER_$BUILD_TIMESTAMP
 docker push dataebuka/airflow-worker-1:v$BUILD_NUMBER_$BUILD_TIMESTAMP
 docker push dataebuka/airflow-worker-2:v$BUILD_NUMBER_$BUILD_TIMESTAMP
-
-
