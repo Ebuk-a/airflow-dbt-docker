@@ -11,11 +11,12 @@ pipeline {
     }
 
     environment {
-        registryCredential = 'ecr:eu-west-2:awscreds'
-        pipelineRegistry = "117542381924.dkr.ecr.eu-west-2.amazonaws.com/airflowimg"
-        airflowRegistry = "https://117542381924.dkr.ecr.eu-west-2.amazonaws.com"
-        cluster = "airflow"
-        service = "airflowsvc"
+        DOCKER_CREDENTIAL = credentials('dockercred')
+        REGISTRY_CREDENTIAL = 'dockercred'
+        PIPELINE_REGISTRY = "117542381924.dkr.ecr.eu-west-2.amazonaws.com/airflowimg"
+        AIRFLOW_REGISTRY = "https://117542381924.dkr.ecr.eu-west-2.amazonaws.com"
+        CLUSTER = "airflow"
+        SERVICE = "airflowsvc"
     }
 
     stages {
@@ -41,9 +42,15 @@ pipeline {
             }  
           }
         }
-        stage('Run health tests against the container') {
+        stage('Run webserver health test on container') {
           steps {
             sh 'curl http://localhost:8081/health'
+          }
+        }
+        stage('Push Containers to DockerHub') {
+          steps {
+            sh 'chmod 777 dockerpush.sh'
+            sh './dockerpush.sh'
           }
         }
     }
