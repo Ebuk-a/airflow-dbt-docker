@@ -19,7 +19,6 @@ RUN pip install --no-cache-dir -r airflow-requirements.txt
 USER root
 # RUN python -m virtualenv --system-site-packages dbt_venv && source dbt_venv/bin/activate && \
 #      pip install --no-cache-dir -r dbt-requirements.txt && deactivate
-RUN chmod 777 /opt/airflow
 
 RUN python3 -m venv --system-site-packages dbt_venv && source dbt_venv/bin/activate && \
 pip3 install --no-cache-dir -r dbt-requirements.txt && deactivate
